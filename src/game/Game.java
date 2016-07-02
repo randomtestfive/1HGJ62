@@ -68,6 +68,10 @@ public class Game extends SimulationFrame {
 			{
 				w = true;
 			}
+			else if(arg0.getKeyCode() == KeyEvent.VK_SPACE)
+			{
+				w = true;
+			}
 			
 			if(arg0.getKeyCode() == KeyEvent.VK_A)
 			{
@@ -101,6 +105,10 @@ public class Game extends SimulationFrame {
 		public void keyReleased(KeyEvent arg0) 
 		{
 			if(arg0.getKeyCode() == KeyEvent.VK_W)
+			{
+				w = false;
+			}
+			else if(arg0.getKeyCode() == KeyEvent.VK_SPACE)
 			{
 				w = false;
 			}
