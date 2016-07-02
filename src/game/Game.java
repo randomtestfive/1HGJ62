@@ -219,7 +219,7 @@ public class Game extends SimulationFrame {
 		body2.setAngularVelocity(0);
 		body2.getTransform().setRotation(0);
 		System.out.println(body2.getLinearVelocity().x + ", " + body2.getChangeInPosition().x);
-		if((k.getW() && (body2.getChangeInPosition().y <= 0.01 && body2.getChangeInPosition().y >= -0.01)) || (k.getSpace() && (body2.getChangeInPosition().y <= 0.01 && body2.getChangeInPosition().y >= -0.01)))
+		if((k.getW() && (body2.getChangeInPosition().y <= 0.01 && body2.getChangeInPosition().y >= -0.0001)) || (k.getSpace() && (body2.getChangeInPosition().y <= 0.0001 && body2.getChangeInPosition().y >= -0.01)))
 		{
 			//body2.applyForce(new Vector2(0, 200));
 			body2.setLinearVelocity(body2.getLinearVelocity().x, 10);
