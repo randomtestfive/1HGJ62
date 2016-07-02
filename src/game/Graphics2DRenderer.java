@@ -65,7 +65,7 @@ public final class Graphics2DRenderer {
 		if (color == null) color = Color.ORANGE;
 		
 		if(shape instanceof Entity) {
-			
+			Graphics2DRenderer.render(g, (Entity)shape, scale, color);
 		} else if (shape instanceof Circle) {
 			Graphics2DRenderer.render(g, (Circle)shape, scale, color);
 		} else if (shape instanceof Polygon) {
@@ -165,6 +165,11 @@ public final class Graphics2DRenderer {
 		// draw the outline
 		g.setColor(getOutlineColor(color));
 		g.draw(l);
+	}
+	
+	public static final void render(Graphics2D g, Entity entity, double scale, Color color) {
+		System.out.println("ngjirukh");
+		g.drawImage(Game.tl.textureFromName(entity.texturename), 0, 0, null, null);
 	}
 	
 	/**

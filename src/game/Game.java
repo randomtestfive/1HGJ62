@@ -152,7 +152,7 @@ public class Game extends SimulationFrame {
 	private SimulationBody controller;
 	
 	Keys k = new Keys();
-	SimulationBody body2;
+	Entity body2;
 	
 	/**
 	 * Default constructor.
@@ -169,10 +169,11 @@ public class Game extends SimulationFrame {
 	protected void initializeWorld() {
 	    this.world.setGravity(World.EARTH_GRAVITY);
 	    
-	    body2 = new SimulationBody(Color.BLUE);
-	    BodyFixture f = new BodyFixture(Geometry.createRectangle(0.75,1.2));
+	    body2 = new Entity();
+	    BodyFixture f = new BodyFixture(Geometry.createRectangle(0.75,0.75));
 	    f.setFriction(0);
 	    f.setRestitution(0);
+	    body2.setTextureName("player");
 	    body2.addFixture(f);
 	    body2.setLinearVelocity(new Vector2(0.0, 0.0));
 	    body2.setAngularVelocity(0.0);
@@ -252,7 +253,8 @@ public class Game extends SimulationFrame {
 	
 	public static void addTextures()
 	{
-		
+		tl.addMap("/Textures/spaceman.gif", "player");
+		tl.loadTextures();
 	}
 	
 	/**
