@@ -32,10 +32,16 @@ public class Game extends SimulationFrame {
 		private boolean d = false;
 		private boolean left = false;
 		private boolean right = false;
+		private boolean space = false;
 		
 		public boolean getW()
 		{
 			return w;
+		}
+		
+		public boolean getSpace()
+		{
+			return space;
 		}
 		
 		public boolean getA()
@@ -70,9 +76,10 @@ public class Game extends SimulationFrame {
 			{
 				w = true;
 			}
-			else if(arg0.getKeyCode() == KeyEvent.VK_SPACE)
+			
+			if(arg0.getKeyCode() == KeyEvent.VK_SPACE)
 			{
-				w = true;
+				space = true;
 			}
 			
 			if(arg0.getKeyCode() == KeyEvent.VK_A)
@@ -110,9 +117,10 @@ public class Game extends SimulationFrame {
 			{
 				w = false;
 			}
-			else if(arg0.getKeyCode() == KeyEvent.VK_SPACE)
+			
+			if(arg0.getKeyCode() == KeyEvent.VK_SPACE)
 			{
-				w = false;
+				space = false;
 			}
 			
 			if(arg0.getKeyCode() == KeyEvent.VK_A)
@@ -211,7 +219,7 @@ public class Game extends SimulationFrame {
 		body2.setAngularVelocity(0);
 		body2.getTransform().setRotation(0);
 		System.out.println(body2.getLinearVelocity().x + ", " + body2.getChangeInPosition().x);
-		if(k.getW() && body2.getChangeInPosition().y == 0)
+		if((k.getW() && (body2.getChangeInPosition().y <= 0.01 && body2.getChangeInPosition().y >= -0.01)) || (k.getSpace() && (body2.getChangeInPosition().y <= 0.01 && body2.getChangeInPosition().y >= -0.01)))
 		{
 			//body2.applyForce(new Vector2(0, 200));
 			body2.setLinearVelocity(body2.getLinearVelocity().x, 10);
