@@ -1,4 +1,4 @@
-package test;
+package game;
 
 /*
  * Copyright (c) 2010-2016 William Bittle  http://www.dyn4j.org/
