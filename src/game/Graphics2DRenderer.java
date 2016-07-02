@@ -64,7 +64,9 @@ public final class Graphics2DRenderer {
 		// just default the color
 		if (color == null) color = Color.ORANGE;
 		
-		if (shape instanceof Circle) {
+		if(shape instanceof Entity) {
+			
+		} else if (shape instanceof Circle) {
 			Graphics2DRenderer.render(g, (Circle)shape, scale, color);
 		} else if (shape instanceof Polygon) {
 			Graphics2DRenderer.render(g, (Polygon)shape, scale, color);

@@ -22,6 +22,8 @@ public class Game extends SimulationFrame {
 	/** The serial version id */
 	private static final long serialVersionUID = -805418642620588619L;
 	
+	public static TextureLoader tl;
+	
 	private final class Keys implements KeyListener
 	{
 		private boolean w = false;
@@ -240,11 +242,19 @@ public class Game extends SimulationFrame {
 		return new Vector2(x, y);
 	}
 	
+	public static void addTextures()
+	{
+		
+	}
+	
 	/**
 	 * Entry point for the example application.
 	 * @param args command line arguments
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
+		tl = new TextureLoader();
+		addTextures();
 		Game simulation = new Game();
 		simulation.run();
 	}
