@@ -234,7 +234,7 @@ public class Game extends SimulationFrame {
 		g.scale(1, -1);
 		g.drawString("Score: " + score, -400, -290);
 		g.scale(1,  -1);
-		g.translate(-camera, 0);
+		//g.translate(-camera, 0);
 		super.render(g, elapsedTime);
 		
 		
