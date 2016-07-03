@@ -14,6 +14,7 @@ import org.dyn4j.geometry.Vector2;
 public class Entity extends SimulationBody
 {
 	public String texturename;
+	public boolean visible = true;
 	
 	public Entity()
 	{
@@ -22,27 +23,30 @@ public class Entity extends SimulationBody
 	
 	@Override
 	public void render(Graphics2D g, double scale, Color color) {
-		// point radius
-		final int pr = 4;
-		
-		// save the original transform
-		AffineTransform ot = g.getTransform();
-		
-		// transform the coordinate system from world coordinates to local coordinates
-		AffineTransform lt = new AffineTransform();
-		lt.translate(this.transform.getTranslationX() * scale, this.transform.getTranslationY() * scale);
-		lt.rotate(this.transform.getRotation());
-		
-		// apply the transform
-		g.transform(lt);
-		
-		// loop over all the body fixtures for this body
-		for (BodyFixture fixture : this.fixtures) {
-			this.renderFixture(g, scale, fixture, color);
+		if(visible)
+		{
+			// point radius
+			final int pr = 4;
+			
+			// save the original transform
+			AffineTransform ot = g.getTransform();
+			
+			// transform the coordinate system from world coordinates to local coordinates
+			AffineTransform lt = new AffineTransform();
+			lt.translate(this.transform.getTranslationX() * scale, this.transform.getTranslationY() * scale);
+			lt.rotate(this.transform.getRotation());
+			
+			// apply the transform
+			g.transform(lt);
+			
+			// loop over all the body fixtures for this body
+			for (BodyFixture fixture : this.fixtures) {
+				this.renderFixture(g, scale, fixture, color);
+			}
+			
+			// set the original transform
+			g.setTransform(ot);
 		}
-		
-		// set the original transform
-		g.setTransform(ot);
 	}
 	
 	@Override

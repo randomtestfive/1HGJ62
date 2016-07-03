@@ -31,12 +31,23 @@ public class Game extends SimulationFrame {
 	/** The serial version id */
 	private static final long serialVersionUID = -805418642620588619L;
 	
+	public int count;
+	
 	public final class Contacts extends ContactAdapter
 	{
+		
+		
 		public Contacts()
 		{
 			super();
+			count = 10;
 			System.out.println("fejs");
+		}
+		
+		public void down()
+		{
+			count--;
+			//System.out.println(count);
 		}
 
 		@Override
@@ -49,15 +60,16 @@ public class Game extends SimulationFrame {
 				Entity e = (Entity)point.getBody1();
 				if(e.texturename.equals("fuel"))
 				{
-					//System.out.println("wda");
+					System.out.println(count);
 					if(point.getBody2() instanceof Entity)
 					{
 						Entity e2 = (Entity)point.getBody2();
-						if(e2.texturename.equals("player"))
+						if(e2.texturename.equals("player") && count <= 0)
 						{
 							score++;
 						}
 					}
+					count = 50;
 					world.removeBody(e);
 				}
 			} 
@@ -67,15 +79,16 @@ public class Game extends SimulationFrame {
 				Entity e = (Entity)point.getBody2();
 				if(e.texturename.equals("fuel"))
 				{
-					//System.out.println("wda");
+					System.out.println(count);
 					if(point.getBody1() instanceof Entity)
 					{
 						Entity e2 = (Entity)point.getBody1();
-						if(e2.texturename.equals("player"))
+						if(e2.texturename.equals("player") && count <= 0)
 						{
 							score++;
 						}
 					}
+					count = 50;
 					world.removeBody(e);
 				}
 			}
@@ -146,7 +159,7 @@ public class Game extends SimulationFrame {
 	    
 		SimulationBody wallb = new SimulationBody();
 		wallb.addFixture(Geometry.createRectangle(30, 0.2));
-		wallb.translate(0, -6.5);
+		wallb.translate(0, -6.6);
 		wallb.setMass(MassType.INFINITE);
 		world.addBody(wallb);
 		
@@ -167,12 +180,34 @@ public class Game extends SimulationFrame {
 		plat2.translate(4, 2);
 		plat2.setMass(MassType.INFINITE);
 		world.addBody(plat2);
+		
+		SimulationBody owalll = new SimulationBody();
+		owalll.addFixture(Geometry.createRectangle(0.2, 14));
+		owalll.translate(-9, 0);
+		owalll.setMass(MassType.INFINITE);
+		world.addBody(owalll);
+		
+		SimulationBody owallr = new SimulationBody();
+		owallr.addFixture(Geometry.createRectangle(0.2, 14));
+		owallr.translate(9, 0);
+		owallr.setMass(MassType.INFINITE);
+		world.addBody(owallr);
 	}
 	
 	@Override
 	protected void update(Graphics2D g, double elapsedTime)
 	{
-		System.out.println(score);
+		c.down();
+		//System.out.println(c.count);
+		if(count > 0)
+		{
+			fuel.visible = false;
+		}
+		else
+		{
+			fuel.visible = true;
+		}
+		//System.out.println(score);
 		if(!world.containsBody(fuel))
 		{
 			Transform t = new Transform();
