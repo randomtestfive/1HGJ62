@@ -178,7 +178,7 @@ public class Game extends SimulationFrame {
 	    this.world.setGravity(World.EARTH_GRAVITY);
 	    
 	    body2 = new Entity();
-	    BodyFixture f = new BodyFixture(Geometry.createRectangle(0.75,0.75));
+	    BodyFixture f = new BodyFixture(Geometry.createRectangle(2,2));
 	    f.setFriction(0);
 	    f.setRestitution(0);
 	    body2.setTextureName("player");
