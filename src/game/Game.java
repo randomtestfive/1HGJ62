@@ -13,6 +13,7 @@ import java.util.List;
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.World;
+import org.dyn4j.dynamics.contact.ContactAdapter;
 import org.dyn4j.dynamics.contact.ContactListener;
 import org.dyn4j.dynamics.contact.ContactPoint;
 import org.dyn4j.dynamics.contact.PersistedContactPoint;
@@ -20,6 +21,7 @@ import org.dyn4j.dynamics.contact.SolvedContactPoint;
 import org.dyn4j.dynamics.joint.MotorJoint;
 import org.dyn4j.geometry.Convex;
 import org.dyn4j.geometry.Geometry;
+import org.dyn4j.geometry.Mass;
 import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Rectangle;
 import org.dyn4j.geometry.Transform;
@@ -29,13 +31,67 @@ public class Game extends SimulationFrame {
 	/** The serial version id */
 	private static final long serialVersionUID = -805418642620588619L;
 	
+	public final class Contacts extends ContactAdapter
+	{
+		public Contacts()
+		{
+			super();
+			System.out.println("fejs");
+		}
+
+		@Override
+		public void sensed(ContactPoint point) {
+			// TODO Auto-generated method stub
+			
+			if(point.getBody1() instanceof Entity)
+			{
+				//System.out.println("bnrioe");
+				Entity e = (Entity)point.getBody1();
+				if(e.texturename.equals("fuel"))
+				{
+					//System.out.println("wda");
+					if(point.getBody2() instanceof Entity)
+					{
+						Entity e2 = (Entity)point.getBody2();
+						if(e2.texturename.equals("player"))
+						{
+							score++;
+						}
+					}
+					world.removeBody(e);
+				}
+			} 
+			if(point.getBody2() instanceof Entity)
+			{
+				//System.out.println("bnrioe");
+				Entity e = (Entity)point.getBody2();
+				if(e.texturename.equals("fuel"))
+				{
+					//System.out.println("wda");
+					if(point.getBody1() instanceof Entity)
+					{
+						Entity e2 = (Entity)point.getBody1();
+						if(e2.texturename.equals("player"))
+						{
+							score++;
+						}
+					}
+					world.removeBody(e);
+				}
+			}
+		}
+	}
+	
 	public static TextureLoader tl;
 	
 	/** The controller body */
 	private SimulationBody controller;
 	Listeners l = new Listeners();
 	Listeners.Keys k = l.new Keys();
+	Contacts c = new Contacts();
 	Entity body2;
+	Entity fuel;
+	int score = 0;
 	
 	/**
 	 * Default constructor.
@@ -53,6 +109,12 @@ public class Game extends SimulationFrame {
 	protected void initializeWorld()
 	{
 	    this.world.setGravity(World.EARTH_GRAVITY);
+	    if(c == null)
+	    {
+	    	System.out.println("frwejga");
+	    	c = new Contacts();
+	    }
+	    world.addListener(c);
 	    
 	    body2 = new Entity();
 	    //BodyFixture f = new BodyFixture(Geometry.createRectangle(2,2));
@@ -66,6 +128,21 @@ public class Game extends SimulationFrame {
 	    body2.setMass(MassType.FIXED_ANGULAR_VELOCITY);
 	    body2.setAutoSleepingEnabled(false);
 	    world.addBody(body2);
+	    
+	    fuel = new Entity();
+	    //BodyFixture f = new BodyFixture(Geometry.createRectangle(2,2));
+	    BodyFixture f2 = new BodyFixture(Geometry.createSquare(1));
+	    f2.setFriction(0);
+	    f2.setRestitution(0);
+	    f2.setSensor(true);
+	    fuel.setTextureName("fuel");
+	    fuel.addFixture(f2);
+	    fuel.translate(-3, 0);
+	    fuel.setLinearVelocity(new Vector2(0.0, 0.0));
+	    fuel.setAngularVelocity(0.0);
+	    fuel.setMass(new Mass(new Vector2(0,0), 0, 0.0000001));
+	    fuel.setAutoSleepingEnabled(false);
+	    world.addBody(fuel);
 	    
 		SimulationBody wallb = new SimulationBody();
 		wallb.addFixture(Geometry.createRectangle(30, 0.2));
@@ -95,6 +172,15 @@ public class Game extends SimulationFrame {
 	@Override
 	protected void update(Graphics2D g, double elapsedTime)
 	{
+		System.out.println(score);
+		if(!world.containsBody(fuel))
+		{
+			Transform t = new Transform();
+			t.setTranslation((Math.random() - 0.5) * 10, (Math.random() - 0.5) * 6);
+			fuel.setTransform(t);
+			world.addBody(fuel);
+		}
+		
 		body2.setAngularVelocity(0);
 		body2.getTransform().setRotation(0);
 		//System.out.println(body2.getContacts(false));
@@ -144,8 +230,14 @@ public class Game extends SimulationFrame {
 		final int h = this.canvas.getHeight();
 		g.setColor(Color.BLACK);
 		g.fillRect(-w / 2, -h / 2, w, h);
+		g.setColor(Color.WHITE);
+		g.scale(1, -1);
+		g.drawString("Score: " + score, -400, -290);
+		g.scale(1,  -1);
 		g.translate(-camera, 0);
 		super.render(g, elapsedTime);
+		
+		
 		//g.setBackground(Color.BLACK);
 	}
 	

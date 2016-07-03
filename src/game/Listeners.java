@@ -3,6 +3,13 @@ package game;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import org.dyn4j.dynamics.contact.Contact;
+import org.dyn4j.dynamics.contact.ContactAdapter;
+import org.dyn4j.dynamics.contact.ContactListener;
+import org.dyn4j.dynamics.contact.ContactPoint;
+import org.dyn4j.dynamics.contact.PersistedContactPoint;
+import org.dyn4j.dynamics.contact.SolvedContactPoint;
+
 public class Listeners 
 {
 	public final class Keys implements KeyListener
@@ -136,4 +143,5 @@ public class Listeners
 		}
 		
 	}
+	
 }
