@@ -163,6 +163,7 @@ public class Game extends SimulationFrame {
 	public static void addTextures()
 	{
 		tl.addMap("/textures/spaceman.gif", "player");
+		tl.addMap("/textures/fuel.gif", "fuel");
 		tl.loadTextures();
 	}
 	
