@@ -7,9 +7,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
+import java.util.List;
 
+import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.World;
+import org.dyn4j.dynamics.contact.ContactListener;
+import org.dyn4j.dynamics.contact.ContactPoint;
+import org.dyn4j.dynamics.contact.PersistedContactPoint;
+import org.dyn4j.dynamics.contact.SolvedContactPoint;
 import org.dyn4j.dynamics.joint.MotorJoint;
 import org.dyn4j.geometry.Convex;
 import org.dyn4j.geometry.Geometry;
@@ -86,11 +93,21 @@ public class Game extends SimulationFrame {
 	}
 	
 	@Override
-	protected void update(Graphics2D g, double elapsedTime) {
+	protected void update(Graphics2D g, double elapsedTime)
+	{
 		body2.setAngularVelocity(0);
 		body2.getTransform().setRotation(0);
-		System.out.println(body2.getLinearVelocity().x + ", " + body2.getChangeInPosition().x);
-		if((k.getW() && (body2.getChangeInPosition().y <= 0.0001 && body2.getChangeInPosition().y >= -0.0001)) || (k.getSpace() && (body2.getChangeInPosition().y <= 0.0001 && body2.getChangeInPosition().y >= -0.0001)))
+		//System.out.println(body2.getContacts(false));
+		List<ContactPoint> l = body2.getContacts(false);
+		boolean grounded = false;
+		for(ContactPoint b : l)
+		{
+			if(b.getPoint().y - body2.getTransform().getTranslationY() < 0)
+			{
+				grounded = true;
+			}
+		}
+		if(grounded && (k.getW() && (body2.getChangeInPosition().y <= 0.0001 && body2.getChangeInPosition().y >= -0.0001)) || (k.getSpace() && (body2.getChangeInPosition().y <= 0.0001 && body2.getChangeInPosition().y >= -0.0001)))
 		{
 			body2.setLinearVelocity(body2.getLinearVelocity().x, 10);
 		}
@@ -114,6 +131,16 @@ public class Game extends SimulationFrame {
 			}
 		}
 		super.update(g, elapsedTime);
+	}
+
+	double camera = 0;
+
+	@Override
+	protected void render(Graphics2D g, double elapsedTime)
+	{
+		camera = body2.getTransform().getTranslationX() * 45;
+		g.translate(-camera, 0);
+		super.render(g, elapsedTime);
 	}
 	
 	/**
