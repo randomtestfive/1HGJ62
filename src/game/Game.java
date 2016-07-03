@@ -48,7 +48,8 @@ public class Game extends SimulationFrame {
 	    this.world.setGravity(World.EARTH_GRAVITY);
 	    
 	    body2 = new Entity();
-	    BodyFixture f = new BodyFixture(Geometry.createRectangle(2,2));
+	    //BodyFixture f = new BodyFixture(Geometry.createRectangle(2,2));
+	    BodyFixture f = new BodyFixture(Geometry.createCircle(0.5));
 	    f.setFriction(0);
 	    f.setRestitution(0);
 	    body2.setTextureName("player");
@@ -89,7 +90,7 @@ public class Game extends SimulationFrame {
 		body2.setAngularVelocity(0);
 		body2.getTransform().setRotation(0);
 		System.out.println(body2.getLinearVelocity().x + ", " + body2.getChangeInPosition().x);
-		if((k.getW() && (body2.getChangeInPosition().y <= 0.01 && body2.getChangeInPosition().y >= -0.0001)) || (k.getSpace() && (body2.getChangeInPosition().y <= 0.0001 && body2.getChangeInPosition().y >= -0.01)))
+		if((k.getW() && (body2.getChangeInPosition().y <= 0.0001 && body2.getChangeInPosition().y >= -0.0001)) || (k.getSpace() && (body2.getChangeInPosition().y <= 0.0001 && body2.getChangeInPosition().y >= -0.0001)))
 		{
 			body2.setLinearVelocity(body2.getLinearVelocity().x, 10);
 		}
