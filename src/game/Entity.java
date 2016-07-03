@@ -66,13 +66,23 @@ public class Entity extends SimulationBody
 						(int)Math.ceil(w * scale),
 						(int)Math.ceil(h * scale),
 						null);
+			} else if (convex instanceof Circle) {
+				// cast the shape to get the radius
+				Circle c = (Circle) convex;
+				double r = c.getRadius();
+				Vector2 cc = c.getCenter();
+				int x = (int)Math.ceil((cc.x - r) * scale);
+				int y = (int)Math.ceil((cc.y - r) * scale);
+				int w = (int)Math.ceil(r * 2 * scale);
+					// lets us an image instead
+					g.drawImage(Game.tl.textureFromName(texturename), x, y, w, w, null);
+			}
 		} else {
 			// default rendering
 			//super.renderFixture(g, scale, fixture, color);
 		}
 		g.setTransform(oTransform);
 	}
-}
 	
 	public void setTextureName(String t)
 	{
