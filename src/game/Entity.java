@@ -50,7 +50,8 @@ public class Entity extends SimulationBody
 		// do we need to render an image?
 		AffineTransform oTransform = g.getTransform();
 		// translate and rotate
-		g.rotate(3.1415);
+		//this.getLinearVelocity().x;
+		g.rotate(3.1415 - (this.getLinearVelocity().x / 50));
 		if (Game.tl.textureFromName(texturename) != null) {
 			// get the shape on the fixture
 			Convex convex = fixture.getShape();

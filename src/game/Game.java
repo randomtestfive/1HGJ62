@@ -63,12 +63,12 @@ public class Game extends SimulationFrame {
 	    body2.addFixture(f);
 	    body2.setLinearVelocity(new Vector2(0.0, 0.0));
 	    body2.setAngularVelocity(0.0);
-	    body2.setMass(MassType.NORMAL);
+	    body2.setMass(MassType.FIXED_ANGULAR_VELOCITY);
 	    body2.setAutoSleepingEnabled(false);
 	    world.addBody(body2);
 	    
 		SimulationBody wallb = new SimulationBody();
-		wallb.addFixture(Geometry.createRectangle(20, 0.2));
+		wallb.addFixture(Geometry.createRectangle(30, 0.2));
 		wallb.translate(0, -6.5);
 		wallb.setMass(MassType.INFINITE);
 		world.addBody(wallb);
@@ -139,8 +139,14 @@ public class Game extends SimulationFrame {
 	protected void render(Graphics2D g, double elapsedTime)
 	{
 		camera = body2.getTransform().getTranslationX() * 45;
+		
+		final int w = this.canvas.getWidth();
+		final int h = this.canvas.getHeight();
+		g.setColor(Color.BLACK);
+		g.fillRect(-w / 2, -h / 2, w, h);
 		g.translate(-camera, 0);
 		super.render(g, elapsedTime);
+		//g.setBackground(Color.BLACK);
 	}
 	
 	/**
@@ -156,7 +162,7 @@ public class Game extends SimulationFrame {
 	
 	public static void addTextures()
 	{
-		tl.addMap("/Textures/spaceman.gif", "player");
+		tl.addMap("/textures/spaceman.gif", "player");
 		tl.loadTextures();
 	}
 	
