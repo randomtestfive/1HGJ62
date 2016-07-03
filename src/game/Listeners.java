@@ -60,7 +60,7 @@ public class Listeners
 		@Override
 		public void keyPressed(KeyEvent arg0) 
 		{			
-			if(arg0.getKeyCode() == KeyEvent.VK_W)
+			if(arg0.getKeyCode() == KeyEvent.VK_W || arg0.getKeyCode() == KeyEvent.VK_UP)
 			{
 				w = true;
 			}
@@ -70,7 +70,7 @@ public class Listeners
 				space = true;
 			}
 			
-			if(arg0.getKeyCode() == KeyEvent.VK_A)
+			if(arg0.getKeyCode() == KeyEvent.VK_A || arg0.getKeyCode() == KeyEvent.VK_LEFT)
 			{
 				a = true;
 			}
@@ -80,7 +80,7 @@ public class Listeners
 				s = true;
 			}
 			
-			if(arg0.getKeyCode() == KeyEvent.VK_D)
+			if(arg0.getKeyCode() == KeyEvent.VK_D || arg0.getKeyCode() == KeyEvent.VK_RIGHT)
 			{
 				d = true;
 			}
@@ -101,7 +101,7 @@ public class Listeners
 		@Override
 		public void keyReleased(KeyEvent arg0) 
 		{
-			if(arg0.getKeyCode() == KeyEvent.VK_W)
+			if(arg0.getKeyCode() == KeyEvent.VK_W || arg0.getKeyCode() == KeyEvent.VK_UP)
 			{
 				w = false;
 			}
@@ -111,7 +111,7 @@ public class Listeners
 				space = false;
 			}
 			
-			if(arg0.getKeyCode() == KeyEvent.VK_A)
+			if(arg0.getKeyCode() == KeyEvent.VK_A || arg0.getKeyCode() == KeyEvent.VK_LEFT)
 			{
 				a = false;
 			}
@@ -121,7 +121,7 @@ public class Listeners
 				s = false;
 			}
 			
-			if(arg0.getKeyCode() == KeyEvent.VK_D)
+			if(arg0.getKeyCode() == KeyEvent.VK_D || arg0.getKeyCode() == KeyEvent.VK_RIGHT)
 			{
 				d = false;
 			}

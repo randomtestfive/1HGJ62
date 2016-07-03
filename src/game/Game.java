@@ -121,6 +121,7 @@ public class Game extends SimulationFrame {
 	 */
 	protected void initializeWorld()
 	{
+		this.setLocationRelativeTo(null);
 	    this.world.setGravity(World.EARTH_GRAVITY);
 	    if(c == null)
 	    {
@@ -211,7 +212,7 @@ public class Game extends SimulationFrame {
 		if(!world.containsBody(fuel))
 		{
 			Transform t = new Transform();
-			t.setTranslation((Math.random() - 0.5) * 10, (Math.random() - 0.5) * 6);
+			t.setTranslation((Math.random() - 0.5) * 14, (Math.random() - 0.5) * 10);
 			fuel.setTransform(t);
 			world.addBody(fuel);
 		}
